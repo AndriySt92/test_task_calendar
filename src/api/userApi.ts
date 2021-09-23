@@ -3,6 +3,6 @@ import {IUser} from "../models/IUser";
 
 export default class userApi {
     static async getUsers(): Promise<AxiosResponse<IUser[]>> {
-        return axios.get<IUser[]>('/')
+        return axios.get<IUser[]>('./users.json')
     }
 }

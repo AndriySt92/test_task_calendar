@@ -1,6 +1,6 @@
 import {SetIsAuthAction, SetUserAction, SetErrorAction, SetIsLoadingAction, AuthActionEnum} from './types'
 import {IUser} from '../../../models/IUser'
-import { AppDispatch } from '../..'
+import { AppDispatch } from '../../index'
 import userApi from '../../../api/userApi'
 
 export const AuthActionCreators = {
@@ -20,22 +20,27 @@ export const AuthActionCreators = {
         type: AuthActionEnum.SET_IS_LOADING,
         payload
     }),
-    login: (username: string, password: string) => async (dispatch: AppDispatch) => {
+    login: (payload: {username: string, password: string}) => async (dispatch: AppDispatch) => {
         try {
             dispatch(AuthActionCreators.setIsLoading(true))
-            const { data } = await userApi.getUsers()
-            const mockUser = data.find(user => user.username === username && user.password === password)
+            setTimeout( async () => {
+                const { data } = await userApi.getUsers()
 
-            if(mockUser) {
-                localStorage.setItem('auth', 'true')
-                localStorage.setItem('user', mockUser.username)
+                const mockUser = data.find(user => {
+                    return user.username === payload.username && user.password === payload.password
+                })
 
-                dispatch(AuthActionCreators.setUser(mockUser))
-                dispatch(AuthActionCreators.setIsAuth(true))
-            } else {
-                dispatch(AuthActionCreators.setError('Incorrect username or password'))
-            }
+                if(mockUser) {
+                    localStorage.setItem('auth', 'true')
+                    localStorage.setItem('username', mockUser.username)
 
+                    dispatch(AuthActionCreators.setUser(mockUser))
+                    dispatch(AuthActionCreators.setIsAuth(true))
+                } else {
+                    dispatch(AuthActionCreators.setError('Incorrect username or password'))
+                }
+            }, 1000);
+            
             dispatch(AuthActionCreators.setIsLoading(false))
             
         } catch (error) {

@@ -7,7 +7,7 @@ export const EventActionCreators = {
         type: EventActionEnum.SET_GUEST,
         payload
     }),
-    setUser: (payload: IEvent[]): SetEventAction => ({
+    setUsers: (payload: IEvent[]): SetEventAction => ({
         type: EventActionEnum.SET_EVENT,
         payload
     }),
