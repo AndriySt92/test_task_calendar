@@ -3,22 +3,22 @@ import {IEvent} from '../../../models/IEvent'
 import {IUser} from '../../../models/IUser'
 
 const initialtate: EventState = {
-    guest:[] as IUser[],
-    event: [] as IEvent[]
+    guests:[] as IUser[],
+    events: [] as IEvent[]
 
 }
 
 const eventReducer = (state = initialtate, action: EventActions): EventState => {
     switch(action.type){
-        case EventActionEnum.SET_EVENT: 
+        case EventActionEnum.SET_EVENT:   
             return {
                 ...state,
-                event: action.payload
+                events: action.payload as IEvent[]
             }
-        case EventActionEnum.SET_GUEST: 
+        case EventActionEnum.SET_GUESTS: 
             return {
                 ...state,
-                guest: action.payload
+                guests: action.payload
             }
         default:
             return state

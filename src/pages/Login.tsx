@@ -27,19 +27,17 @@ export const Login: FC = () => {
           <Form.Item
             label="Username"
             name="username"
-            rules={[rules('Please input your username!')]}>
+            rules={[rules.require('Please input your username!')]}>
             <Input value={username} onChange={(e) => setUsername(e.currentTarget.value)} />
           </Form.Item>
 
           <Form.Item
             label="Password"
             name="password"
-            rules={[rules('Please input your password!')]}>
+            rules={[rules.require('Please input your password!')]}>
             <Input.Password value={password} onChange={(e) => setPassword(e.currentTarget.value)} />
           </Form.Item>
-          {error && (
-            <Alert message={error} type="error" style={{ margin: '0px 0px 24px 10px' }} />
-          )}
+          {error && <Alert message={error} type="error" style={{ margin: '0px 0px 24px 10px' }} />}
           <Row justify="start">
             <Form.Item wrapperCol={{ offset: 3, span: 16 }} style={{ marginBottom: 0 }}>
               <Button type="primary" htmlType="submit" loading={isLoading}>
