@@ -1,21 +1,16 @@
 import React, { FC, useState, useEffect } from 'react'
-import { Calendar, Row, Modal, Button } from 'antd'
-import { Moment } from 'moment'
+import { Row, Modal, Button } from 'antd'
 import { FormEvent } from '../Component/FormEvent'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { IEvent } from '../models/IEvent'
 import { useActions } from '../hooks/useActions'
 import { EventCalendar } from '../Component/EventCalendar'
 
-function onPanelChange(value: Moment) {
-  console.log(value.format('YYYY-MM-DD'))
-}
-
 export const Event: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const { guests, events } = useTypedSelector((state) => state.event)
   const { user } = useTypedSelector((state) => state.auth)
-  const { getGuests, createEvent, getEvents} = useActions()
+  const { getGuests, createEvent, getEvents } = useActions()
 
   useEffect(() => {
     getGuests()
@@ -32,12 +27,11 @@ export const Event: FC = () => {
 
   const addNewEvent = (event: IEvent) => {
     setIsModalVisible(false)
-    createEvent(event)
-    console.log(event)
+    createEvent(event, user.username)
   }
   return (
-    <div style={{ height: 'fit-content' }}>
-      <Row justify="center" align="middle" className="h100">
+    <div style={{ height: 'fit-content' }} className="h100">
+      <Row justify="center" align="middle" style={{ height: '90vh' }}>
         <EventCalendar events={events} />
         <Modal
           title="Basic Modal"
@@ -49,7 +43,7 @@ export const Event: FC = () => {
         </Modal>
       </Row>
       <Row justify="center" align="middle">
-        <Button type="primary" onClick={showModal} style={{marginBottom: '100px'}}>
+        <Button type="primary" onClick={showModal} style={{}}>
           Open Modal
         </Button>
       </Row>

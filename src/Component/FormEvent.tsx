@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react'
-import { Form, Input, Button, Row, DatePicker, Select, Alert } from 'antd'
+import { Form, Input, Button, Row, DatePicker, Select } from 'antd'
 import { rules } from '../utils/rules'
 import { IEvent } from '../models/IEvent'
 import { IUser } from '../models/IUser'
